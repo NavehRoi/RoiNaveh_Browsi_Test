@@ -69,12 +69,13 @@ router.post('/domains', (req, res) => {
   const publisher = data[selectedPublisherIndex]
 
   //Checking if the name is unique
-  if (isDomainNameUnique(domain.domain, "")){
+  let flag = isDomainNameUnique(domain.domain, "") ;
+  if( flag == -1){
     if (publisher) {
       publisher.domains.push(domain);
       res.status(201).json(domain);
     } else {
-      res.status(404).json({ message: 'Publisher not found' });
+      res.status(404).json({ message: `This domain is already configured on publisher ${flag + 1}` });
     }
   } 
 });
@@ -88,7 +89,8 @@ router.post('/updateDomain', (req, res) => {
     for (let publisher of data) {
       const domainIndex = publisher.domains.findIndex(d => d.domain === domainCurrentName);
       if (domainIndex !== -1) {
-        if(isDomainNameUnique(domain.domain, domainCurrentName)){
+        let flag = isDomainNameUnique(domain.domain, domainCurrentName);
+        if( flag == -1){
           publisher.domains[domainIndex] = {
             domain: domain.domain,
             desktopAds:  domain.desktopAds,
@@ -99,7 +101,7 @@ router.post('/updateDomain', (req, res) => {
           break;
 
         } else{
-          res.status(409).json({ message: 'This domain is already configured.' });
+          res.status(409).json({ message: `This domain is already configured on publisher ${flag + 1}` });
         }
       }
     }
@@ -117,11 +119,11 @@ function isDomainNameUnique(newDomainName, currentDomainName) {
     for (let domain of publisher.domains) {
       //Making sure the current name has change
       if (domain.domain === newDomainName && domain.domain !== currentDomainName) {
-        return false; // The name is not unique
+        return i; // The name is not unique
       }
     }
   }
-  return true; // The name is unique
+  return -1; // The name is unique
 }
 
 

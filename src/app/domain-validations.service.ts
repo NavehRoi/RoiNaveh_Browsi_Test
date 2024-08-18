@@ -44,7 +44,8 @@ export class DomainValidationsService {
       catchError(error => {
         if (error.status === 409) {
           // Show alert if the domain already exists (409 Conflict)
-          alert('This domain is already configured on another publisher.');
+          const errorMessage = error.error?.message || 'This domain is already configured on another publisher.';
+          alert(errorMessage);
         } else {
           console.error('An unexpected error occurred:', error);
         }
@@ -64,7 +65,9 @@ export class DomainValidationsService {
       catchError(error => {
         if (error.status === 409) {
           // Show alert if the domain already exists (409 Conflict)
-          alert('This domain is already configured on another publisher.');
+          const errorMessage = error.error?.message || 'This domain is already configured on another publisher.';
+          alert(errorMessage);
+
         } else {
           console.error('An unexpected error occurred:', error);
         }

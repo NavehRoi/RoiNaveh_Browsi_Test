@@ -1,0 +1,14 @@
+<div class="edit-card-container">
+    <button (click)="toggleEdit()">{{buttonText}}</button>
+  </div>
+  <div class="form" *ngIf="isEdit">
+     
+    <div> Domain:</div>
+    <input type="text" [(ngModel)]="_domain.domain">
+    <div> Mobile Ads:</div>
+    <input type="text" [(ngModel)]="_domain.desktopAds">
+    <div> Desktop Ads:</div>
+    <input type="text" [(ngModel)]="_domain.mobileAds">
+    <button (click)="editDomain()">Save</button>
+</div >
+

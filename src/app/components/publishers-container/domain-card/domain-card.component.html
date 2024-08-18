@@ -1,0 +1,7 @@
+<div class="domain-card-container">
+  <div>{{domain.domain}}</div>
+  <div>Desktop Ads: {{domain.desktopAds}}</div>
+  <div>Mobile Ads: {{domain.mobileAds}}</div>
+</div>
+<app-edit-domain  [domain]="domain" [buttonText]="'Edit'" (domainSaved)="onDomainSaved($event) " ></app-edit-domain>
+<button (click)="onDelete()">Delete</button>

@@ -1,0 +1,15 @@
+<div class="publishers-container">
+    <div>
+      <button (click)="addPublisher()">Add publisher</button>
+      <app-edit-domain  [domain]="domain" [buttonText]="'Add Domain'" (domainSaved)="onDomainSaved($event)" ></app-edit-domain>
+      <select [(ngModel)]="selectedPublisherIndex">
+        <option *ngFor="let num of [].constructor(data.length); let i = index" [value]="i">
+          Publisher {{ i + 1 }}
+        </option>
+      </select>
+    </div>
+    
+    <div>
+      <app-publisher-card *ngFor="let publisher of data" [publisher]="publisher"></app-publisher-card>
+    </div>
+</div>
